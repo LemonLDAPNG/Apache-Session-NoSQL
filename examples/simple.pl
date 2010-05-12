@@ -11,7 +11,7 @@ my $id = $session1{_session_id};
 untie %session1;
 
 my %session2;
-tie %session2, 'Apache::Session::MySQL', $id, {
+tie %session2, 'Apache::Session::NoSQL', $id, {
     Driver => 'Cassandra',
     Hostname => 'localhost',
   };

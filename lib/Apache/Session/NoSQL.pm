@@ -2,10 +2,11 @@ package Apache::Session::NoSQL;
 
 use strict;
 use base qw(Apache::Session);
+use Apache::Session::Store::NoSQL;
 use Apache::Session::Generate::MD5;
 use Apache::Session::Lock::Null;
-use Apache::Session::Serialize::Storable;
-use Apache::Session::Store::NoSQL;
+use Apache::Session::Serialize::Base64;
+#use Apache::Session::Serialize::Storable;
 
 use vars qw($VERSION);
 $VERSION = '0.01';
@@ -13,12 +14,14 @@ $VERSION = '0.01';
 sub populate {
     my $self = shift;
 
-    $self->{object_store} = new Apache::Session::Store::NoSQL;
-    $self->{lock_manager} = new Apache::Session::Lock::Null;
+    $self->{object_store} = new Apache::Session::Store::NoSQL $self;
+    $self->{lock_manager} = new Apache::Session::Lock::Null $self;
     $self->{generate}     = \&Apache::Session::Generate::MD5::generate;
     $self->{validate}     = \&Apache::Session::Generate::MD5::validate;
-    $self->{serialize}    = \&Apache::Session::Serialize::Storable::serialize;
-    $self->{unserialize}  = \&Apache::Session::Serialize::Storable::unserialize;
+    $self->{serialize}    = \&Apache::Session::Serialize::Base64::serialize;
+    $self->{unserialize}  = \&Apache::Session::Serialize::Base64::unserialize;
+    #$self->{serialize}    = \&Apache::Session::Serialize::Storable::serialize;
+    #$self->{unserialize}  = \&Apache::Session::Serialize::Storable::unserialize;
 
     return $self;
 }

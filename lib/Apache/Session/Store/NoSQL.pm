@@ -1,8 +1,10 @@
 package Apache::Session::Store::NoSQL;
 
 use strict;
+use vars qw(@ISA $VERSION);
 
-use vars qw($VERSION);
+use Apache::Session::Store::NoSQL::Cassandra;
+
 $VERSION = '0.01';
 
 sub new {
@@ -10,9 +12,8 @@ sub new {
     my $self;
 
     if ( $session->{args}->{Driver} ) {
-      my $driver = $session->{args}->{Driver};
-      $self->{driver} = $driver
-      $self->{cache} = new Apache::Session::Store::NoSQL::$driver;
+      my $module = 'Apache::Session::Store::NoSQL::' . $session->{args}->{Driver};
+      $self->{cache} = new $module;
     }
     else {
       die 'No driver specified.';
@@ -23,28 +24,22 @@ sub new {
 
 sub insert {
     my ( $self, $session ) = @_;
-    $self->{cache}->set(
-        $session->{data}->{_session_id},
-        $session->{serialized} );
+    $self->{cache}->insert( $session );
 }
 
 sub update {
     my ( $self, $session ) = @_;
-    $self->{cache}->replace(
-        $session->{data}->{_session_id},
-        $session->{serialized} );
+    $self->{cache}->update( $session );
 }
 
 sub materialize {
     my ( $self, $session ) = @_;
-    $session->{serialized} = $self->{cache}->get(
-        $session->{data}->{_session_id})
-        or die 'Object does not exist in data store.';
+    $session->{serialized} = $self->{cache}->materialize( $session );
 }
 
 sub remove {
     my ( $self, $session ) = @_;
-    $self->{cache}->delete( $session->{data}->{_session_id} );
+    $self->{cache}->remove( $session );
 }
 
 1;

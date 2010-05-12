@@ -1,0 +1,13 @@
+
+Perl dependencies:
+
+Class::Accessor
+Bit::Vector
+
+Under Debian:
+
+aptitude install libclass-accessor-perl
+aptitude install libbit-vector-perl
+
+then install Net::Cassandra from CPAN.
+

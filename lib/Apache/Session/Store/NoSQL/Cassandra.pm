@@ -1,6 +1,8 @@
+
 package Apache::Session::Store::NoSQL::Cassandra;
 
 use strict;
+use Data::Dumper;
 use Net::Cassandra;
 
 use vars qw($VERSION);
@@ -36,9 +38,9 @@ sub update {
 
 sub materialize {
     my ( $self, $session ) = @_;
-    $client->get(
+    $self->{cache}->get(
         'Keyspace1',
-        $key1,
+        $session->{data}->{_session_id},
         Net::Cassandra::Backend::ColumnPath->new(
             { column_family => 'Standard1', column => 'name' }
         ),
