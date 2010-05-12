@@ -3,8 +3,6 @@ package Apache::Session::Store::NoSQL;
 use strict;
 use vars qw(@ISA $VERSION);
 
-use Apache::Session::Store::NoSQL::Cassandra;
-
 $VERSION = '0.01';
 
 sub new {
@@ -12,8 +10,15 @@ sub new {
     my $self;
 
     if ( $session->{args}->{Driver} ) {
-      my $module = 'Apache::Session::Store::NoSQL::' . $session->{args}->{Driver};
-      $self->{cache} = new $module;
+      my $module = 'Apache::Session::Store::NoSQL::'
+        . $session->{args}->{Driver};
+      eval "require $module";
+      if ($@) {
+          die 'Unable to load ' . $module;
+      }
+      unless ( $self->{cache} = new $module ) {
+          die 'Unable to instanciate ' . $module;
+      }
     }
     else {
       die 'No driver specified.';
