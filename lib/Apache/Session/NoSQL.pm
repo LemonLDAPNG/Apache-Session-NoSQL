@@ -32,13 +32,19 @@ __END__
 
 =head1 NAME
 
-Apache::Session::NoSQL
+Apache::Session::NoSQL - An implementation of Apache::Session module for NoSQL databases
 
 =head1 SYNOPSIS
 
+  use Apache::Session::NoSQL;
+  tie %hash, 'Apache::Session::NoSQL', $id, {
+    # TODO
+  };
+
 =head1 DESCRIPTION
 
-=head1 SEE ALSO
+This module is an implementation of Apache::Session. It uses a NoSQL database
+to store datas.
 
 =head1 AUTHOR
 
@@ -51,5 +57,9 @@ Copyright (C) 2010 by Thomas Chemineau
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
+
+=head1 SEE ALSO
+
+L<Apache::Session>
 
 =cut

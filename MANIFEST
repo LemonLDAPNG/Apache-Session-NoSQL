@@ -1,0 +1,9 @@
+Changes
+examples/simple.pl
+lib/Apache/Session/NoSQL.pm
+lib/Apache/Session/Store/NoSQL.pm
+lib/Apache/Session/Store/NoSQL/Cassandra.pm
+Makefile.PL
+MANIFEST
+README
+t/Apache-Session-NoSQL.t
