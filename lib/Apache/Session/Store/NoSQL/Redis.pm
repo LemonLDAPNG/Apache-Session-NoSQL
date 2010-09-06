@@ -46,7 +46,7 @@ Apache::Session::Store::NoSQL::Redis - An implementation of Apache::Session::Sto
 
  #if you want Apache::Session to open new DB handles:
 
- tie %hash, 'Apache::Session::MySQL', $id, {
+ tie %hash, 'Apache::Session::NoSQL', $id, {
     Driver => 'Redis',
     # optional: default to localhost
     server => '127.0.0.1:6379',
