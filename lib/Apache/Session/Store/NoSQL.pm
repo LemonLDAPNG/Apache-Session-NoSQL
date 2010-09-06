@@ -3,7 +3,7 @@ package Apache::Session::Store::NoSQL;
 use strict;
 use vars qw(@ISA $VERSION);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 sub new {
     my ( $class, $session ) = @_;
@@ -16,7 +16,7 @@ sub new {
       if ($@) {
           die 'Unable to load ' . $module;
       }
-      unless ( $self->{cache} = new $module ) {
+      unless ( $self->{cache} = new $module ( $session->{args} ) ) {
           die 'Unable to instanciate ' . $module;
       }
     }

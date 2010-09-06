@@ -9,7 +9,7 @@ use Apache::Session::Serialize::Base64;
 #use Apache::Session::Serialize::Storable;
 
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 sub populate {
     my $self = shift;
@@ -38,7 +38,13 @@ Apache::Session::NoSQL - An implementation of Apache::Session module for NoSQL d
 
   use Apache::Session::NoSQL;
   tie %hash, 'Apache::Session::NoSQL', $id, {
-    # TODO
+    Driver => 'Cassandra',
+    
+    # or
+    
+    Driver => 'Redis',
+    # optional: default to 127.0.0.1:6379
+    server => '10.1.1.1:6379',
   };
 
 =head1 DESCRIPTION
@@ -49,10 +55,11 @@ to store datas.
 =head1 AUTHOR
 
 Thomas Chemineau, E<lt>thomas.chemineau@gmail.comE<gt>
+Xavier Guimard, E<lt>x.guimard@free.frE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2010 by Thomas Chemineau
+Copyright (C) 2010 by Thomas Chemineau, Xavier Guimard
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
