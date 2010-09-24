@@ -1,13 +1,11 @@
 
 Perl dependencies:
 
-Class::Accessor
-Bit::Vector
+Apache::Session
 
 Under Debian:
 
-aptitude install libclass-accessor-perl
-aptitude install libbit-vector-perl
+aptitude install libapache-session-perl
 
-then install Net::Cassandra from CPAN.
+then install Net::Cassandra or Redis from CPAN.
 

@@ -4,3 +4,9 @@ Revision history for Perl extension Apache::Session::NoSQL.
 	- original version; created by h2xs 1.23 with options
 		-AXn Apache::Session::NoSQL
 
+0.02  Mon Sep 6 11:42:44 +0200 2010
+    - added Redis backend
+
+0.03  Fri Sep 24 11:58:12 +0200 2010
+    - More doc
+    - Dependencies
