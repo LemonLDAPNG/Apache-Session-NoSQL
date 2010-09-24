@@ -9,31 +9,33 @@ sub new {
     my ( $class, $session ) = @_;
     my $self;
 
-    $self->{cache} = Redis->new( %{$session} );
-    print STDERR Dumper(\@_);use Data::Dumper;
+    $self->{cache} = Redis->new( %{ $session->{args} } );
 
     bless $self, $class;
 }
 
 sub insert {
     my ( $self, $session ) = @_;
-    $self->{cache}->set($session->{data}->{_session_id},$session->{serialized});
+    $self->{cache}
+      ->set( $session->{data}->{_session_id}, $session->{serialized} );
 }
 
 *update = *insert;
 
 sub materialize {
     my ( $self, $session ) = @_;
-    $self->{cache}->get($session->{data}->{_session_id}) or die 'Object does not exist in data store.';
+    $self->{cache}->get( $session->{data}->{_session_id} )
+      or die 'Object does not exist in data store.';
 }
 
 sub remove {
     my ( $self, $session ) = @_;
-    $self->{cache}->del($session->{data}->{_session_id});
+    $self->{cache}->del( $session->{data}->{_session_id} );
 }
 
 1;
 __END__
+
 =pod
 
 =head1 NAME
