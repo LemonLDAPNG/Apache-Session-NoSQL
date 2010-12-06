@@ -11,3 +11,7 @@ Revision history for Perl extension Apache::Session::NoSQL.
     - More doc
     - Dependencies
     (revision 1599)
+
+0.1   Mon Dec 6 21:54:55 +0100 2010
+    - Bug: materialize does not work with Redis
+

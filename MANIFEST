@@ -1,5 +1,6 @@
 Changes
 examples/simple.pl
+lib/Apache/Session/Cassandra.pm
 lib/Apache/Session/NoSQL.pm
 lib/Apache/Session/Redis.pm
 lib/Apache/Session/Store/NoSQL.pm

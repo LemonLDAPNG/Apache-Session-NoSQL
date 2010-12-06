@@ -2,11 +2,10 @@
 package Apache::Session::Store::NoSQL::Cassandra;
 
 use strict;
-use Data::Dumper;
 use Net::Cassandra;
 
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.1';
 
 sub new {
     my ( $class, $session ) = @_;
@@ -14,7 +13,7 @@ sub new {
 
     $self->{cache} = Net::Cassandra->new( %{$session} )->client;
 
-    bless $self,$class;
+    bless $self, $class;
 }
 
 sub insert {
@@ -31,10 +30,7 @@ sub insert {
     );
 }
 
-sub update {
-    my ( $self, $session ) = @_;
-    $self->insert( %{$session} );
-}
+*update = *insert;
 
 sub materialize {
     my ( $self, $session ) = @_;
@@ -45,8 +41,7 @@ sub materialize {
             { column_family => 'Standard1', column => 'name' }
         ),
         Net::Cassandra::Backend::ConsistencyLevel::QUORUM
-    )
-    or die 'Object does not exist in data store.';
+    ) or die 'Object does not exist in data store.';
 }
 
 sub remove {
@@ -66,19 +61,32 @@ sub remove {
 
 __END__
 
+=pod
+
 =head1 NAME
 
-Apache::Session::Store::NoSQL
+Apache::Session::Store::NoSQL::Cassandra - An implementation of Apache::Session::Store
 
 =head1 SYNOPSIS
 
+ use Apache::Session::NoSQL;
+ 
+ tie %hash, 'Apache::Session::Cassandra', $id, {
+ };
+
 =head1 DESCRIPTION
 
-=head1 SEE ALSO
+This module is an implementation of Apache::Session::NoSQL. It uses the
+Cassandra storage system
 
 =head1 AUTHOR
 
-Thomas Chemineau, E<lt>thomas.chemineau@gmail.comE<gt>
+Thomas Chemineau, E<lt>thomas.chemineau@gmail.comE<gt>,
+Xavier Guimard E<lt>x.guimard@free.frE<gt>
+
+=head1 SEE ALSO
+
+L<Apache::Session::NoSQL>, L<Apache::Session>
 
 =head1 COPYRIGHT AND LICENSE
 

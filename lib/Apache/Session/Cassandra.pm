@@ -1,13 +1,13 @@
-package Apache::Session::Redis;
+package Apache::Session::Cassandra;
 
 use strict;
 use base qw(Apache::Session::NoSQL);
 
-our $VERSION = '0.1';
+our $VERSION = '0.01';
 
 sub populate {
     my $self = shift;
-    $self->{args}->{Driver} = 'Redis';
+    $self->{args}->{Driver} = 'Cassandra';
     return $self->SUPER::populate(@_);
 }
 
@@ -18,20 +18,18 @@ __END__
 
 =head1 NAME
 
-Apache::Session::Redis - An implementation of Apache::Session
+Apache::Session::Cassandra - An implementation of Apache::Session
 
 =head1 SYNOPSIS
 
- use Apache::Session::Redis;
+ use Apache::Session::Cassandra;
  
- tie %hash, 'Apache::Session::Redis', $id, {
-    # optional: default to localhost
-    server => '127.0.0.1:6379',
+ tie %hash, 'Apache::Session::Cassandra', $id, {
  };
 
 =head1 DESCRIPTION
 
-This module is an implementation of Apache::Session::NoSQL. It uses the Redis
+This module is an implementation of Apache::Session::NoSQL. It uses the Cassandra
 storage system
 
 =head1 AUTHOR
