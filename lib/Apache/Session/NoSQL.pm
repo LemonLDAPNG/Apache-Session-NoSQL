@@ -9,7 +9,7 @@ use Apache::Session::Serialize::Base64;
 #use Apache::Session::Serialize::Storable;
 
 use vars qw($VERSION);
-$VERSION = '0.1';
+$VERSION = '0.2';
 
 sub populate {
     my $self = shift;
